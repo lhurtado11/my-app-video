@@ -1,25 +1,38 @@
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
+import tasks from './sample/tasks.json';
+// importando componentes
+import Form from './components/Form'
+import Tasks from './components/Tasks';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+    constructor() {
+        super();
+        this.state = {
+            tasks: tasks,
+        }
+        this.addTask = this.addTask.bind(this)
+
+    }
+    addTask(title, description) {
+        const newTask = {
+            title: title,
+            description: description,
+            id: 45
+        }
+        this.setState({
+            tasks: [...this.state.tasks, newTask] 
+        })
+    }
+    render() {
+        this.addTask()
+        return(
+            <div>
+                <Form addTask= {this.addTask}/>
+                <Tasks tasks={this.state.tasks}/>               
+            </div>
+        )
+    }
 }
 
 export default App;
